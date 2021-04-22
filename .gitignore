@@ -1,0 +1,3 @@
+frontend/node_modules/*
+api/interview/.vs/*
+api/interview/interview/bin/*
