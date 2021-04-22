@@ -1,0 +1,159 @@
+<html>
+<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+<style>
+    div input{
+        width: 100%;
+    }
+    
+    button {
+        margin-left: 46%;
+    }
+</style>
+<body>
+    <input type="text" class="col-sm-12" placeholder="url-api" name="url-api" id="url-api" value="http://localhost:44367/api/users">
+    <form action="ConsumeAPI()"">
+        <div class="container row col-sm-12">
+            <div class="container col col-sm-6">
+                <h1>Usuário</h1>
+                <hr>
+                
+                <input type="text" placeholder="Nome" name="name" id="name" required>
+                <hr> 
+                
+                <input type="tel" class="phone" placeholder="Celular" name="phone" id="phone" required>
+                <hr>
+                
+                <input type="date" placeholder="Data de nascimento" name="birthdate" id="birthdate" required>
+                <hr>
+                
+                <input type="email" placeholder="Email" name="email" id="email" required>
+                <hr>
+                
+                <input type="password" placeholder="Senha" name="password" id="password" required>
+                <hr>
+                
+                <input type="password" placeholder="Repita a senha" name="confirmation-password" id="confirmation-password" required>
+                <hr>
+                
+            </div>
+            
+            <div class="container col col-sm-6">
+                <h1>Endereço</h1>
+                <hr>
+                
+                <input name="cep" placeholder="CEP" type="text" id="cep" class="cep" onblur="ConsumeViaCEP(this.value)" required/><hr />
+                
+                <input name="street" placeholder="Rua" type="text" id="street" required/><hr />
+                
+                <input name="district" placeholder="Bairro" type="text" id="district" required/><hr />
+                
+                <input name="number" placeholder="Número" type="number" id="number" required/><hr />
+                
+                <input name="city" placeholder="Cidade" type="text" id="city" required/><hr />
+                
+                <input name="country" placeholder="País" type="text" id="country" required/><hr />
+                
+            </div>
+            
+        </div>
+        <button type="submit" class="btn btn-primary" onclick="ConsumeAPI()">Registrar</button>
+    </form>
+</body>
+<script src="node_modules/jquery/dist/jquery.min.js"></script>
+<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="node_modules/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('.phone').mask('(00) 0 0000-0000');
+        $('.cep').mask('00000-000');
+    });
+
+    // $(document).submit(ConsumeAPI());
+
+    function ConsumeAPI() {
+
+        event.preventDefault();
+
+        var obj = {
+            name: $('#name').val(),
+            email: $('#email').val(),
+            phone: $('#phone').val(),
+            birthdate: $('#birthdate').val(),
+            password: $('#password').val(),
+            address:  {
+                cep: $('#cep').val(),
+                street: $('#street').val(),
+                number: $('#number').val(),
+                city: $('#city').val(),
+                district: $('#district').val(),
+                country: $('#country').val(),
+            }
+        }
+
+        console.log(obj);
+
+        let urlAPI = $('#url-api').val() || "http://localhost:44367/api/users";
+
+        $.ajax({
+            url: urlAPI,
+            type: "POST",
+            data: obj,
+            // contentType: "application/json; charset=utf-8",
+            // headers: {
+            //     'Access-Control-Allow-Origin': '*',
+            //     "Content-Type": "text/plain; charset=utf-8",
+            //     'Access-Control-Allow-Methods': 'POST, GET',
+            //     'Access-Control-Allow-Headers': '*'
+            // },
+            success: (response) => {
+                console.log(response);
+                alert(response);
+            },
+            statusCode: {
+                400: (response) => {
+                    alert('Erro ao realizar a requisição');
+                }
+            },
+            error: (response) => {
+                console.log(response);
+                alert("Erro ao realizar a requisição");
+            },
+            timeout: 1000
+        });
+    }
+    
+    function ConsumeViaCEP(cep) {
+        if(cep.length < 9) return;
+        
+        $.ajax({
+            url: "https://viacep.com.br/ws/"+ cep +"/json/?callback=",
+            type: "GET",
+            success: function(response) {
+
+                console.log(response);
+
+                if(!("erro" in response)) {
+                    $("#street").val(response.logradouro);
+                    $("#district").val(response.bairro);
+                    $("#city").val(response.localidade);
+                    $("#country").val(response.uf);
+                }
+                else {
+                    alert("Não existe o CEP digitado");
+                    $('#cep').val("");
+                    $('#street').val("");
+                    $('#district').val("");
+                    $('#city').val("");
+                    $('#country').val("");
+                    $('#number').val("");
+                }
+                
+            },
+            error: (response) => {
+                alert("Erro ao consumir API Viacep " + response);
+            },
+            timeout: 10000
+        });
+    }
+</script>
+</html>
