@@ -1,4 +1,4 @@
-# API + formulario
+# API + formulário
 
 Foi desenvolvido uma API em ASP.NET Core 5 e um formulário com HTML5, CSS3 e JS (JQuery).
 
@@ -12,6 +12,7 @@ Foi desenvolvido uma API em ASP.NET Core 5 e um formulário com HTML5, CSS3 e JS
 	- CORS;
 	- Data Anottations (validar campos);
 	- Alguns princípios SOLID;
+	- Swagger (documentar API);
 	
 # Foi utilizado no Frontend:
 	- JQuery;
