@@ -1,5 +1,5 @@
 <html>
-<link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css">
 <style>
     div input{
         width: 100%;
@@ -10,7 +10,7 @@
     }
 </style>
 <body>
-    <input type="text" class="col-sm-12" placeholder="url-api" name="url-api" id="url-api" value="http://localhost:44367/api/users">
+    <input type="text" class="col-sm-12" placeholder="url-api" name="url-api" id="url-api" value="http://localhost:44962/api/users">
     <form action="ConsumeAPI()"">
         <div class="container row col-sm-12">
             <div class="container col col-sm-6">
@@ -59,9 +59,12 @@
         <button type="submit" class="btn btn-primary" onclick="ConsumeAPI()">Registrar</button>
     </form>
 </body>
-<script src="node_modules/jquery/dist/jquery.min.js"></script>
-<script src="node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
-<script src="node_modules/jquery-mask-plugin/dist/jquery.mask.min.js"></script>
+<script
+  src="https://code.jquery.com/jquery-3.6.0.min.js"
+  integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+  crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
 <script>
     $(document).ready(function() {
         $('.phone').mask('(00) 0 0000-0000');
@@ -88,29 +91,26 @@
             }
         }
 
-        console.log(obj);
+        console.log(JSON.stringify(obj));
 
-        let urlAPI = $('#url-api').val() || "http://localhost:44367/api/users";
+        let urlAPI = $('#url-api').val() || "http://localhost:44962/api/users";
 
         $.ajax({
             url: urlAPI,
             type: "POST",
-            data: obj,
-            // contentType: "application/json; charset=utf-8",
-            // headers: {
-            //     'Access-Control-Allow-Origin': '*',
-            //     "Content-Type": "text/plain; charset=utf-8",
-            //     'Access-Control-Allow-Methods': 'POST, GET',
-            //     'Access-Control-Allow-Headers': '*'
-            // },
+            data: JSON.stringify(obj),
+            dataType: 'json',
+            contentType: "application/json;",
+            crossDomain: true,
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                "Content-Type": "application/json; charset=UTF-8",
+                'Access-Control-Allow-Methods': 'POST, GET',
+                'Access-Control-Allow-Headers': '*'
+            },
             success: (response) => {
                 console.log(response);
-                alert(response);
-            },
-            statusCode: {
-                400: (response) => {
-                    alert('Erro ao realizar a requisição');
-                }
+                alert("Cadastrado com sucesso");
             },
             error: (response) => {
                 console.log(response);

@@ -2,7 +2,6 @@ using interview.Data;
 using interview.Data.UnitOfWork;
 using interview.Repositories.AddressRepository;
 using interview.Repositories.UserRepository;
-using interview.Services.AddressService;
 using interview.Services.UserService;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -30,7 +29,6 @@ namespace interview
             services.AddScoped<DataContext, DataContext>();
 
             services.AddTransient<IUserService, UserService>();
-            services.AddTransient<IAddressService, AddressService>();
 
             services.AddTransient<IUnitOfWork, UnitOfWork>();
 
@@ -38,6 +36,12 @@ namespace interview
             services.AddTransient<IAddressRepository, AddressRepository>();
 
             services.AddControllers();
+
+            services.AddCors(options => options.AddDefaultPolicy
+            (
+                builder => builder.AllowAnyMethod().AllowAnyHeader().AllowAnyOrigin()
+            ));
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "interview", Version = "v1" });
@@ -57,6 +61,8 @@ namespace interview
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
+            app.UseCors();
 
             app.UseAuthorization();
 
