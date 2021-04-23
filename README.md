@@ -27,7 +27,7 @@ Foi desenvolvido uma API em ASP.NET Core 5 e um formulário com HTML5, CSS3 e JS
 	2 - Se o visual studio não baixar automaticamente as dependências, faça:
 		2.1 - Abrir o console de package manager (nuget);
 		2.2 - Executar o seguinte comando "Update-Package -reinstall" (sem as aspas) e esperar o término do comando;
-	4 - Pronto, agora é só executar a api;
+	3 - Pronto, agora é só executar a api;
 	
 # Como executar o frontend?
 	1 - Dentro da pasta frontend, há o arquivo index.html, seleione-o e com o botão direito do mouse, vá na opção "abrir com" 
