@@ -25,4 +25,4 @@ O teste é interessante, justo e prático. No momento não tenho o que sugerir.
 
 5. Acha válido esse desafio para o processo que está participando? 
 
-Sim.
+Sim. Ele verifica habilidades na criação de APIe requisições.
