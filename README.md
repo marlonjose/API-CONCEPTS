@@ -6,7 +6,7 @@ Foi desenvolvido uma API em ASP.NET Core 5 e um formulário com HTML5, CSS3 e JS
 	- Entity Framework Core;
 	- Entity Framework in memory;
 	- Pattern Repository;
-	- Pattern DI;
+	- Pattern DI (injeção de dependência);
 	- Pattern Unit Of Work;
 	- Separado em camadas (Services, Repositories, Models, Controllers, Data);
 	- CORS;
