@@ -11,7 +11,7 @@ Foi desenvolvido uma API em ASP.NET Core 5 e um formulário com HTML5, CSS3 e JS
 	- Separado em camadas (Services, Repositories, Models, Controllers, Data);
 	- CORS;
 	- Data Anottations (validar campos);
-	- Alguns princípios SOLID;
+	- Princípios SOLID;
 	- Swagger (documentar API);
 	
 # Foi utilizado no Frontend:
